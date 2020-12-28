@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn wbclone.wsgi:application --log-file - --log-level debug
+web: gunicorn wapps.wsgi:application --log-file - --log-level debug
