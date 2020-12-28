@@ -50,7 +50,7 @@ class UserProfile(viewsets.ViewSet):
 
             list.append( {
                 "id":icd,
-                "user":[user(f)],
+                "user":user(f),
                 "lastMessage": m.pop() if len(m) >0 else m
             })
 
