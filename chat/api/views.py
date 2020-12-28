@@ -25,8 +25,8 @@ class UserProfile(viewsets.ViewSet):
             for z in p:
 
                 return [
-                    {"id":'u{}'.format(id) ,"name":u.user.username,"imageUri":"http://127.0.0.1:8000/media/{}".format(u.avatar)},
-                    {"id":'u{}'.format(z['id']) ,"name":x.username,"imageUri":"http://127.0.0.1:8000/media/"+z['avatar']},
+                    {"id":'u{}'.format(id) ,"name":u.user.username,"imageUri":"http://wbclone.herokuapp.com/media/{}".format(u.avatar)},
+                    {"id":'u{}'.format(z['id']) ,"name":x.username,"imageUri":"http://wbclone.herokuapp.com/media/"+z['avatar']},
                 ]
 
 
@@ -50,7 +50,7 @@ class UserProfile(viewsets.ViewSet):
 
             list.append( {
                 "id":icd,
-                "user":user(f),
+                "users":user(f),
                 "lastMessage": m.pop() if len(m) >0 else m
             })
 
@@ -69,7 +69,7 @@ class UserMessage(viewsets.ViewSet):
                 a = i['avatar']
                 id = i['id']
                 for d in p:
-                    return {'id': "u1" if str(id) ==  str(id_s) else "u2" ,"name":d['username'],"imageUri":"http://127.0.0.1:8000/media/"+a}
+                    return {'id': "u1" if str(id) ==  str(id_s) else "u2" ,"name":d['username'],"imageUri":"http://wbclone.herokuapp.com/media/"+a}
 
         def userM(id):
             u = Profile.objects.filter(id=id).values()
