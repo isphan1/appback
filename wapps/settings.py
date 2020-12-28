@@ -27,8 +27,12 @@ SECRET_KEY = '6$k4@c@v*9k-#fl*4@%ju4gw$yp#o)pg*zgp+w7igm_)ej7^2o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
-
+ALLOWED_HOSTS = [
+    '**',  # subdoamin wildcard
+    'localhost',
+    '127.0.0.1',
+    "192.168.1.148"
+]
 CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
