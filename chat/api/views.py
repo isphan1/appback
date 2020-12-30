@@ -33,8 +33,6 @@ class CreateNewMessage(viewsets.ViewSet):
 # }
 
 class UserProfile(viewsets.ViewSet):
-
-    permission_classes = [IsAuthenticatedOrReadOnly]    
     
     def list(self,request):
 
