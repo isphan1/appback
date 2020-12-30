@@ -14,12 +14,29 @@ class Profile(models.Model):
     def __str__(self) -> str:
         return self.user.username
 
-class Messages(models.Model):
+class Message(models.Model):
 
-    sender_p = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name="user_m")
-    reciver_p = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name="friend_m")
+    m_sender = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name="m_sender")
+    m_reciver = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name="m_reciver")
     msg = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True,blank=True)
 
     def __str__(self) -> str:
         return self.msg
+
+class RelationShip(models.Model):
+
+    STATUS_CHOICE = (
+        ('send',"send"),
+        ('accpeted',"accpeted"),
+    )
+
+    sender = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name="sender")
+    reciver = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name="reciver")
+    status = models.CharField(max_length=10,choices=STATUS_CHOICE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    @property
+    def status_list(self) -> str:
+        return f"{self.sender}-{self.reciver}-{self.status}"

@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models import fields
 from rest_framework.serializers import ModelSerializer
-from chat.models import Profile,Messages
+from chat.models import Profile,Message
 
 class ProfileSerializers(ModelSerializer):
     class Meta:
@@ -12,6 +12,11 @@ class ProfileSerializers(ModelSerializer):
 class MessageSerializers(ModelSerializer):
 
     class Meta:
-        model = Messages
+        model = Message
         fields = "__all__"
-        depth=1
+
+    def create(self,validate_data):
+
+        print(validate_data)
+
+        
