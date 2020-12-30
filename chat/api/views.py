@@ -92,6 +92,9 @@ class UserMessage(viewsets.ViewSet):
         id_s = self.request.data['s_name']
         id_r = self.request.data['r_name']
 
+        s = Profile.objects.get(user__username=id_s)
+        r = Profile.objects.get(user__username=id_r)
+
         def user(x):
             
             p = User.objects.get(id=x.id)
@@ -99,17 +102,10 @@ class UserMessage(viewsets.ViewSet):
             return {'id': "u1" if str(x.id) ==  str(s.id) else "u2" ,"name":p.username,"imageUri":"http://wbclone.herokuapp.com/media/{}".format(x.avatar)}
 
         def userM(id):
-            u = Profile.objects.filter(id=id).values()
-            p = None
-            a = ''
-            for x in u:
-                p = User.objects.filter(id=x['user_id']).values()
-                id = x['id']
-            for d in p:
-                return {'id': "u1" if str(id) ==  str(id_s) else "u2","name":d['username']}
+            u = Profile.objects.get(id=id)
 
-        s = Profile.objects.get(user__username=id_s)
-        r = Profile.objects.get(user__username=id_r)
+            return {'id': "u1" if str(id) ==  str(s.id) else "u2","name":u.user.username}
+
 
         list = {}
         m = []
