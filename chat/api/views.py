@@ -21,10 +21,16 @@ class CreateNewMessage(viewsets.ViewSet):
 
         newMsg = Message.objects.create(m_sender=s,m_reciver=r,msg=self.request.data['msg'])
 
-        print(newMsg)
-
         if newMsg:
-            return Response({"msg":"new message create"})
+            return Response({
+                "id": newMsg.id,
+                "createdAt": newMsg.created_at,
+                "content": newMsg.msg,
+                "user": {
+                    "id": "u{}".format(s.id),
+                    "name": self.request.data['s_name']
+                }
+            })
 
         return Response({"msg":"Something went wrong !"})    
 # {
@@ -45,7 +51,7 @@ class UserProfile(viewsets.ViewSet):
             print(x.profile.user.username)
 
             return [
-                    {"id":'u{}'.format(id) ,"name":u.user.username,"imageUri":"http://wbclone.herokuapp.com/media/{}".format(u.avatar)},
+                    {"id":'u1' ,"name":u.user.username,"imageUri":"http://wbclone.herokuapp.com/media/{}".format(u.avatar)},
                     {"id":'u{}'.format(x.profile.id) ,"name":x.profile.user.username,"imageUri":"http://wbclone.herokuapp.com/media/{}".format(x.profile.avatar)},
                 ]
 
