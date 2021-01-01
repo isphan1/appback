@@ -1,16 +1,42 @@
+from django.core.exceptions import ValidationError
 from django.core.serializers import serialize
 from django.db.models import Q
 from rest_framework import viewsets
 import rest_framework
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import ProfileSerializers, MessageSerializers
+from .serializers import ProfileSerializers, MessageSerializers,UserSerializer
 from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin
 from chat.models import Message, Profile
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
 import json
+
+class UserCreateView(CreateAPIView,CreateModelMixin):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+    def post(self,request,*args,**kwargs):
+        return self.create(request,*args,**kwargs)
+
+
+class LoginUser(viewsets.ViewSet):
+
+    def login(self,request):
+        username = self.request.data['username']
+
+        if username:
+            
+            user = authenticate(username=username,password="jnj")
+
+            if user:
+                list = {"username":user.username,"id":user.id}
+                return Response(list)
+
+            else:
+                return Response({"msg":'Incorrect username or password. please try again !'},status=401)
 
 class CreateNewMessage(viewsets.ViewSet):
     
@@ -27,7 +53,7 @@ class CreateNewMessage(viewsets.ViewSet):
                 "createdAt": newMsg.created_at,
                 "content": newMsg.msg,
                 "user": {
-                    "id": "u{}".format(s.id),
+                    "id": "u1",
                     "name": self.request.data['s_name']
                 }
             })
