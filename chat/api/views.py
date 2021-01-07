@@ -69,6 +69,10 @@ class CreateNewMessage(viewsets.ViewSet):
 # "r_name":"Alen",
 # }
 
+#
+##
+###
+
 class UserProfile(viewsets.ViewSet):
     
     def list(self,request):
