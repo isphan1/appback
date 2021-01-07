@@ -1,9 +1,11 @@
 from django.contrib.auth.models import User
 from django.contrib import admin
-from  chat.models import Profile,Message,RelationShip
+from  chat.models import Profile,Message,RelationShip,Category,Ingredient
 # Register your models here.
 
 admin.site.unregister(User)
+admin.site.register(Category)
+admin.site.register(Ingredient)
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):

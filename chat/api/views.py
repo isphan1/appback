@@ -13,6 +13,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
 import json
+import random
+import string 
+
+url = "http://127.0.0.1:8000/media/"
+# url = "http://wbclone.herokuapp.com/media/"
 
 class UserCreateView(CreateAPIView,CreateModelMixin):
     serializer_class = UserSerializer
@@ -74,11 +79,10 @@ class UserProfile(viewsets.ViewSet):
 
         def user(x):
             
-            print(x.profile.user.username)
-
+            room = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(10))
             return [
-                    {"id":'u1' ,"name":u.user.username,"imageUri":"http://wbclone.herokuapp.com/media/{}".format(u.avatar)},
-                    {"id":'u{}'.format(x.profile.id) ,"name":x.profile.user.username,"imageUri":"http://wbclone.herokuapp.com/media/{}".format(x.profile.avatar)},
+                    {"id":'u1' ,"name":u.user.username,"imageUri":"{}{}".format(url,u.avatar),"room":room},
+                    {"id":'u{}'.format(x.profile.id) ,"name":x.profile.user.username,"imageUri":"{}{}".format(url,x.profile.avatar),"room":room},
                 ]
 
 
@@ -125,7 +129,7 @@ class UserMessage(viewsets.ViewSet):
             
             p = User.objects.get(id=x.id)
 
-            return {'id': "u1" if str(x.id) ==  str(s.id) else "u2" ,"name":p.username,"imageUri":"http://wbclone.herokuapp.com/media/{}".format(x.avatar)}
+            return {'id': "u1" if str(x.id) ==  str(s.id) else "u2" ,"name":p.username,"imageUri":"{}{}".format(url,x.avatar)}
 
         def userM(id):
             u = Profile.objects.get(id=id)

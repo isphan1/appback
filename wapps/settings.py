@@ -29,15 +29,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '**',  # subdoamin wildcard
-    'http://localhost',
-    'http://127.0.0.1',
-    "http://192.168.1.148"
+    # 'http://localhost',
+    # 'http://127.0.0.1',
+    # "http://192.168.1.148"
 ]
 CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
 INSTALLED_APPS = [
+    "graphene_django",
     'corsheaders',
     'rest_framework',
     'django.contrib.admin',
@@ -47,7 +48,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'chat',
-
 ]
 
 MIDDLEWARE = [
