@@ -83,7 +83,8 @@ class UserProfile(viewsets.ViewSet):
 
         def user(x):
             
-            room = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(10))
+            # room = ''.join(random.SystemRandom().choice(string.ascii_letters + string.digits) for _ in range(10))
+            room = u.id + x.profile.id
             return [
                     {"id":'u1' ,"name":u.user.username,"imageUri":"{}{}".format(url,u.avatar),"room":room},
                     {"id":'u{}'.format(x.profile.id) ,"name":x.profile.user.username,"imageUri":"{}{}".format(url,x.profile.avatar),"room":room},
